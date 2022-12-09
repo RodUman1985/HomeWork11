@@ -1,7 +1,9 @@
 async function loadCurrecies(){
     const res= await fetch('https://date.nager.at/api/v3/AvailableCountries');
-    console.log (res);
+    
      let avCon= await res.json();
+
+     console.log (avCon);
      
      drawCurrencies(avCon);
      
@@ -11,7 +13,7 @@ function drawCurrencies(avCon){
     const select = document.getElementById('avCon');
     avCon.forEach((c) => {
         const option = document.createElement('option');
-        option.innerText=c.Name;
+        option.innerText=c.name;
         option.value=c.countryCode;
         select.appendChild(option)
     });
