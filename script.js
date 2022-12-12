@@ -1,3 +1,6 @@
+let t=new Date();
+    let t2=t.getFullYear();
+    console.log(t2);
 async function loadCurrecies(){
     const res= await fetch('https://date.nager.at/api/v3/AvailableCountries');
     
@@ -20,30 +23,16 @@ function drawCurrencies(avCon){
 
 }
 
-async function showExRate (id){
-    const url=`https://www.nbrb.by/api/exrates/rates/${id}`;
+async function showExRate (countryCode){
+    
+    const url=`https://date.nager.at/api/v3/PublicHolidays/${t2}/${countryCode}`;
     const res = await fetch(url);
     const rate= await res.json();
-    const d= document.getElementById('exrate');
-    d.innerText=`${rate.Cur_Scale}${rate.Cur_Name} = ${rate.Cur_OfficialRate} BYN`;
-}
-async function sendMessage(){
-    const username=document.getElementById('username');
-    const msg=document.getElementById('msg');
-    const req= {
-        name:username.value,
-        messege: msg.value
-
-    }
-    const reqJSON= JSON.stringify(req);
-    const url = 'http://192.168.100.101:8080';
-   await fetch(url,{
-        method:'POST',
-        body: reqJSON,
-        headers:{
-            'Content-Type':'application/json'
-        }
-
-    })
-    msg.value='';
+    console.log(rate);
+    let c1=rate.localName;
+    console.log (c1);
+    let c2=rate.date;
+    console.log (c2);
+    const d= document.getElementById('hollydays');
+    d.innerText=`${rate.date} - ${rate.localName}`;
 }
