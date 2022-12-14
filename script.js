@@ -27,12 +27,19 @@ async function showExRate (countryCode){
     
     const url=`https://date.nager.at/api/v3/PublicHolidays/${t2}/${countryCode}`;
     const res = await fetch(url);
-    const rate= await res.json();
-    console.log(rate);
-    let c1=rate.localName;
-    console.log (c1);
-    let c2=rate.date;
-    console.log (c2);
+    const rates= await res.json();
+    console.log(rates);
     const d= document.getElementById('hollydays');
-    d.innerText=`${rate.date} - ${rate.localName}`;
+    d.innerHTML = '';
+    rates.forEach(rate => {
+        let c1=rate.localName;
+        console.log (c1);
+        let c2=rate.date;
+        console.log (c2);
+        ///
+        const elem = document.createElement('div');
+        elem.innerText=`${rate.date} - ${rate.localName}`;
+        d.append(elem);
+    });
+   
 }
